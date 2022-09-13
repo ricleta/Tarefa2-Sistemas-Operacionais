@@ -1,4 +1,4 @@
-# Sistemas-Operacionais, Tarefa 1: Processos e memória compartilhada
+# Sistemas-Operacionais, Tarefa 2: Threads
 
 Tarefa2 = [https://replit.com/@ricleta/lab1-1#LAB1/](https://replit.com/@ricleta/Tarefa2)
 
