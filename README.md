@@ -10,10 +10,10 @@ concorrência entre os algoritmos (sequencial x paralelo), usando threads
 
 2. Em seguida paralelize o algoritmo de soma utilizando 8 threads. O vetor vetA deve ser inicializado com o valor=1 em todos os elementos e vetB com valor=2. Cada processo vai executar a soma em 125 (ou 1.250) posições dos vetores, de forma a não usarem a mesma posição de memória. Tome o tempo decorrido na execução do algoritmo de soma.
 
-4. Compare o tempo de execução dos algoritmos sequencial e paralelo. 
+3. Compare o tempo de execução dos algoritmos sequencial e paralelo. 
     > __OBS__: Para tomar o tempo de execução dos algoritmos é recomendável que seja utilizada a função gettimeofday().
 
-5. Elabore um relatório contendo o código fonte do programa, apresentando os resultados obtidos e a discussão dos resultados. Indique ainda o que está e o que não está funcionando no seu programa.
+4. Elabore um relatório contendo o código fonte do programa, apresentando os resultados obtidos e a discussão dos resultados. Indique ainda o que está e o que não está funcionando no seu programa.
 
 > #### Importante
 > - O vetor vetA deve ser inicializado com o valor = 1 em todos os elementos e vetB com valor = 2. 
