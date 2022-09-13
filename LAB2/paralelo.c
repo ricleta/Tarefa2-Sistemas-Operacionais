@@ -1,63 +1,43 @@
 #include <stdio.h>
+#include <pthread.h>
 #include "auxiliares.h"
+#define NUM_THREADS 8
 
 int main(void)
 {
-  int tam = 0;
-  int num_filhos = 8;
-  int tam_p = tam / num_filhos;
-  int i = 1;
+  int i = 0;
   int j = 0;
-  int status = 0;
-  int pid, segmento;
-  int *vetA, *vetB, *vetC;
+  Params *parametros = (Params *) malloc(sizeof(Params));
   Timer comeco, fim;
-
+  pthread_t threads[NUM_THREADS];
+  
   printf("Tamanho dos vetores: \n");
-  scanf("%d", &tam);
+  scanf("%d", &parametros->tam);
   
-  vetA = (int *)malloc(sizeof(int) * tam);
-  vetB = (int *)malloc(sizeof(int) * tam);
-  
-  preenche_array(1, tam, vetA);
-  preenche_array(2, tam, vetB);
-
-  segmento = shmget(IPC_PRIVATE, sizeof(int) * tam, IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR);
-  vetC = (int *)shmat(segmento, 0, 0);
-
+  parametros->vetA = (int *)malloc(sizeof(int) * parametros->tam);
+  parametros->vetB = (int *)malloc(sizeof(int) * parametros->tam);
+  parametros->vetC = (int *)malloc(sizeof(int) * parametros->tam);
+    
+  preenche_array(1, parametros->tam, parametros->vetA);
+  preenche_array(2, parametros->tam, parametros->vetB);
 
   gettimeofday(&comeco, NULL); // incio
-
-  for (i = 1; i <= num_filhos; i++)
+  
+  for (i = 0; i < NUM_THREADS; i++)
   {
-    pid = fork();
-    
-    if(pid == 0)
-    {
-      for (j = tam_p * (i - 1); j < i * tam_p; j++)
-      {
-        vetC[j] = vetA[j] + vetB[j];
-      }
-
-      exit(0);
-    }
+    parametros->threadid = i;
+    pthread_create(&threads[i], NULL, calcula_vetor, parametros);
   }
-
-  for (int k = 0; k < num_filhos; k++)
-  {
-    waitpid(-1, &status, 0);
-  }
-
+  
   gettimeofday(&fim, NULL);
 
-  printf("\nTempo : %f ms\n", timediff(comeco, fim)); // fim
+  for(j = 0; j<NUM_THREADS; j++)
+    pthread_join(threads[j],NULL);
+  
+  printf("\nTempo : %f ms\n", timediff(comeco, fim));
 
-  free(vetA);
-  free(vetB);
+  free(parametros->vetA);
+  free(parametros->vetB);
     
-  shmdt(vetC);
-  // libera a memória compartilhada
-  shmctl(segmento, IPC_RMID, 0);
-
   return 0;
 }
