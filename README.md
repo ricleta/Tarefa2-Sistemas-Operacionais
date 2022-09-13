@@ -1,6 +1,6 @@
-# Sistemas-Operacionais, Tarefa 1: Processos e memória compartilhada
+# Sistemas-Operacionais, Tarefa 2: Threads
 
-Tarefa2 = [https://replit.com/@ricleta/lab1-1#LAB1/](https://replit.com/@ricleta/Tarefa2)
+Tarefa2 = [https://replit.com/@ricleta/Tarefa2](https://replit.com/@ricleta/Tarefa2)
 
 ### Enunciado
 __Objetivo__: Avaliar como se comporta o tempo de execução de um algoritmo com e sem
@@ -23,4 +23,4 @@ concorrência entre os algoritmos (sequencial x paralelo), usando threads
 ### Entrega
 A tarefa pode ser feita em dupla. Você deve fazer upload do relatório (.pdf) e do código fonte (.c) no site do EAD. Indique claramente no relatório e no código fonte os nomes e matrículas dos alunos que compõem o grupo.
 
-Link para entregar: [https://ead.puc-rio.br/mod/assign/view.php?id=798506](https://ead.puc-rio.br/mod/assign/view.php?id=801312)
+Link para entregar: [https://ead.puc-rio.br/mod/assign/view.php?id=801312](https://ead.puc-rio.br/mod/assign/view.php?id=801312)
