@@ -1,11 +1,47 @@
 #include <stdio.h>
-#include "auxiliares.h"
+#include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <pthread.h>
 #define NUM_THREADS 8
 
 // nao funciona
 void *nao_faz_nada(void *a)
 {
-  return NULL;
+  // pthread_exit(NULL);
+  // return NULL;
+}
+
+typedef struct timeval Timer;
+
+typedef struct _params{
+  int * vetA;
+  int * vetB;
+  int * vetC;
+  int threadid;
+  int tam;
+}Params;
+
+// bota valor de cada elemento do vetor de tamanho tam como a int valor
+void preenche_array(int valor, int tam, int *arr)
+{
+  int i;
+
+  if (arr == NULL)
+  {
+    exit(-1);
+  }
+
+  for (i = 0; i < tam; i++)
+  {
+    arr[i] = valor;
+  }
+}
+
+//calcula a diferenca de tempo entre dois Timers 
+float timediff(Timer t0, Timer t1)
+{
+	return (t1.tv_sec - t0.tv_sec) * 1000.0f + (t1.tv_usec - t0.tv_usec) / 1000.0f;
 }
 
 int main(void) 
@@ -33,12 +69,16 @@ int main(void)
   for (i = 0; i < tam; i++)
   {
     vetC[i] = vetA[i] + vetB[i];
-    pthread_create(&threads[i], NULL, nao_faz_nada, (void *) &i);
+  }
+
+  for(int k = 0; k < NUM_THREADS; k++)
+  {
+    pthread_create(&threads[k], NULL, nao_faz_nada, (void *) &k);
   }
 
   gettimeofday(&fim, NULL);
 
-  for(j = 0; j<NUM_THREADS; j++)
+  for(j = 0; j < NUM_THREADS; j++)
     pthread_join(threads[j],NULL);
   
   printf("\nTempo : %f ms\n", timediff(comeco, fim)); // fim
