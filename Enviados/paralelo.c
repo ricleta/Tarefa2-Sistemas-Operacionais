@@ -43,10 +43,11 @@ void *calcula_vetor(void * params)
 {
   Params *p = (Params *) params;
   
-  int j, i=p->threadid;
+  int j = 0;
   int tam_p = p->tam/8;
+  // printf("tam = %d, tam_p = %d\n", p->tam, tam_p);
   
-  for (j = tam_p * (i); j < (i+1) * tam_p; j++)
+  for (j = tam_p * (p->threadid - 1); j < (p->threadid) * tam_p; j++)
   {
     p->vetC[j] = p->vetB[j] + p->vetA[j];
   }
@@ -74,10 +75,10 @@ int main(void)
 
   gettimeofday(&comeco, NULL); // incio
   
-  for (i = 0; i < NUM_THREADS; i++)
+  for (i = 1; i <= NUM_THREADS; i++)
   {
     parametros->threadid = i;
-    pthread_create(&threads[i], NULL, calcula_vetor, parametros);
+    pthread_create(&threads[i-1], NULL, calcula_vetor, parametros);
   }
   
   gettimeofday(&fim, NULL);
@@ -87,6 +88,11 @@ int main(void)
   
   printf("\nTempo : %f ms\n", timediff(comeco, fim));
 
+  for (int k = 0; k < parametros->tam; k++)
+  {
+    printf("vetC[%d] = %d\n", k, parametros->vetC[k]);
+  }
+  
   free(parametros->vetA);
   free(parametros->vetB);
     
