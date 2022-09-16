@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <sys/wait.h>
-#include <sys/shm.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
+#include <pthread.h>
 typedef struct timeval Timer;
 
 typedef struct _params{

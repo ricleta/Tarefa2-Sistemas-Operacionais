@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <unistd.h>
 #include <pthread.h>
 #define NUM_THREADS 8
 
-// nao funciona
 void *nao_faz_nada(void *a)
 {
-  // pthread_exit(NULL);
-  // return NULL;
+  return NULL;
 }
 
 typedef struct timeval Timer;
